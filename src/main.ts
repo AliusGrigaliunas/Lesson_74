@@ -49,12 +49,17 @@ console.group('1. Sukurkite funkciją "joinArrays", kuri apjungia 2 masyvus. Gr�
   function joinArrays <T>(arr1:T[], arr2:T[]):T[] { 
     return arr1.concat(arr2);
   }
+
+  function joinArrays2 <T,K>(arr1:T[],arr2:K[]):(T|K)[] {return [...arr1, ...arr2]};
+
   const array1 = [6,5];
   const array2 = [9,7];
 
   const results = joinArrays(array1,array2);
+  const results2 = joinArrays2(array1,array2)
 
   console.log(results);
+  console.log(results2)
 }
 console.groupEnd();
 
@@ -68,7 +73,25 @@ console.group('2. Sukurkite funkciją "joinObjects", kuri apjungia 2 objektus. A
 {
   type CommonProperties<T extends object, K extends Object> = keyof (T | K);
 
-  type Merge<T extends object, K extends Object> = Omit<T, CommonProperties<T, K>> & K;
+  type Merge<T extends Object, K extends Object> = Omit<T, CommonProperties<T, K>> & K;
+
+  function joinObjects <T extends Object, K extends Object>(obj1:T,obj2:K):Merge<T,K> { return {...obj1,...obj2}}
+
+  const object1 = {
+    a:1,
+    b:2,
+    c:5,
+  }
+  const object2 = {
+    a:6,
+    d:8,
+    e:10,
+  }
+
+  const results1 = joinObjects(object2,object1);
+
+  console.log(results1);
+
 }
 console.groupEnd();
 
@@ -80,6 +103,27 @@ console.group('3. Sukurkite funkciją "applyFilters", kuri priima masyvą elemen
     * JS: Array.prototype.reduce
 */
 {
+  const applyFilters = <T>(arr:T[], paramFunction: (a:T) => boolean, paramFunction2: (a:T,b:T) => (T)) => {
+      return [...arr].filter(paramFunction).reduce(paramFunction2)
+  }
+
+  const array1 = ['degtine','alų','vyną','naminė','viskis'];
+  const array2 = [1,5,8,10]
+
+  const results = applyFilters(
+    array1,
+    (a) => a.length > 5,
+    (a,b) => b[0].toUpperCase() + b.slice(1) + ' ' + a[0].toUpperCase() + a.slice(1)
+    );
+
+    const results2 = applyFilters(array2, 
+      (a) => a > 3,
+      (a,b) => a + b
+      )
+
+  console.log({results})
+  console.log(results2);
+  
 }
 console.groupEnd();
 
