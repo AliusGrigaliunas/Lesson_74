@@ -43,9 +43,18 @@
     * Užduočių rezultatų pateikimas tike pat svarbus, kiek sprendimas.
 */
 
-// 10 min
+// 10 min finished at 11:28;
 console.group('1. Sukurkite funkciją "joinArrays", kuri apjungia 2 masyvus. Grąžinamo masyvo tipas turi būti lygus parametrais perduotų masyvų tipų sajungai');
-{
+{ 
+  function joinArrays <T>(arr1:T[], arr2:T[]):T[] { 
+    return arr1.concat(arr2);
+  }
+  const array1 = [6,5];
+  const array2 = [9,7];
+
+  const results = joinArrays(array1,array2);
+
+  console.log(results);
 }
 console.groupEnd();
 
